@@ -1,4 +1,4 @@
-module remote-compilers
+module github.com/Supraboy981322/ssh-remote-compilers/remote-compilers
 
 go 1.25.4
 
