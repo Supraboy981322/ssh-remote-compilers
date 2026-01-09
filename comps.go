@@ -20,7 +20,6 @@ func (compOpts CompConf) Generic_comp(s ssh.Session, dat ReqDat) error {
 	var e error
 
 	binP := filepath.Join(dat.Dir, ran())
-	fmt.Println(binP)
 	cmdArgs := append(append(compOpts.Args, binP), dat.Args...)
 	cmd := exec.Command(compOpts.Cmd, cmdArgs...)
 	cmd.Stderr, cmd.Stdout, cmd.Dir= s.Stderr(), s.Stderr(), dat.Dir
@@ -38,7 +37,6 @@ func go_compiler(s ssh.Session, dat ReqDat) error {
 	var e error
 
 	binP := filepath.Join(dat.Dir, ran())
-	fmt.Println(binP)
 	cmdArgs := append([]string{"build", "-o", binP}, dat.Args...)
 	cmd := exec.Command("go", cmdArgs...)
 	cmd.Stderr, cmd.Stdout, cmd.Dir= s.Stderr(), s.Stderr(), dat.Dir

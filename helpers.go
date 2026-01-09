@@ -3,9 +3,7 @@ package main
 import (
 	"os"
 	"io"
-//	"fmt"
 	"bufio"
-//	"strings"
 	"math/big"
 	"crypto/rand"
 	"archive/tar"
