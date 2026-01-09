@@ -18,6 +18,11 @@ var (
 				Args: []string{},
 				Func: c_compiler,
 			},
+			"go": CompConf{
+				Cmd: "go",
+				Args: []string{},
+				Func: go_compiler,
+			},
 		},
 	} 
 )
@@ -41,18 +46,21 @@ func sshServer(s ssh.Session) {
 	comp := conf.Comp[s.User()]
 	if comp.Func == nil {
 		log.Errorf("invalid compiler (user) attempt: %s", s.User()) 
-		fmt.Fprintf(s.Stderr(), "invalid compiler:  %s\n\r", s.User())
+		fmt.Fprintf(s.Stderr(), "unknown compiler:  %s\n\r", s.User())
 		s.Close() ; return
 	}
 	
-	var pre Pre; if pre, e = readPre(s); e != nil {
-		fmt.Fprintf(s.Stderr(), "invalid compiler:  %s\n\r", s.User())
+	var dat ReqDat; if dat, e = readReq(s); e != nil {
+		log.Errorf("failed to read data:  %v\n\r", e)
+		fmt.Fprintf(s.Stderr(), "failed to read data:  %v\n\r", e)
 		s.Close() ; return
 	}
 
-	if e = comp.Func(s, pre); e != nil {
-		fmt.Fprintf(s.Stderr(), "invalid compiler:  %s\n\r", s.User())
+	if e = comp.Func(s, dat); e != nil {
+		log.Errorf("failed to compile:  %v\n\r", e)
+		fmt.Fprintf(s.Stderr(), "failed to compile:  %v\n\r", e)
 		s.Close() ; return
 	}
+
 	s.Close()
 }

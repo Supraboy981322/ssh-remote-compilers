@@ -4,6 +4,10 @@ import "github.com/gliderlabs/ssh"
 
 type (
 	Pre map[string]string
+	ReqDat struct {
+		Pre Pre
+		Dir string
+	}
 
 	ServerConf struct {
 		Port int
@@ -12,7 +16,7 @@ type (
 	CompConf struct {
 		Cmd string
 		Args []string
-		Func func(s ssh.Session, pre Pre) error
+		Func func(s ssh.Session, dat ReqDat) error
 	}
 
 	Conf struct {
