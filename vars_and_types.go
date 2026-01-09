@@ -1,11 +1,8 @@
 package main
 
-import "github.com/gliderlabs/ssh"
-
 type (
-	Pre map[string]string
 	ReqDat struct {
-		Pre Pre
+		Args []string
 		Dir string
 	}
 
@@ -16,7 +13,6 @@ type (
 	CompConf struct {
 		Cmd string
 		Args []string
-		Func func(s ssh.Session, dat ReqDat) error
 	}
 
 	Conf struct {
@@ -33,18 +29,15 @@ var (
 		Comp: map[string]CompConf{
 			"c": CompConf{
 				Cmd: "gcc",
-				Args: []string{},
-				Func: c_compiler,
+				Args: []string{"-o"},
 			},
 			"go": CompConf{
 				Cmd: "go",
-				Args: []string{},
-				Func: go_compiler,
+				Args: []string{"build", "-o"},
 			},
 			"zig": CompConf{
 				Cmd: "zig",
 				Args: []string{},
-				Func: go_compiler,
 			},
 		},
 	}

@@ -15,13 +15,12 @@ import (
 
 func readReq(s ssh.Session) (ReqDat, error) {
 	pReader := bufio.NewReader(s)
-	pre := Pre{}
 
 	d, e := os.MkdirTemp("/tmp", "ssh_rem_comp--*")
 	if e != nil { return ReqDat{}, e }
 	if e = wr_tarball(pReader, d); e != nil { return ReqDat{}, e }
 	dat := ReqDat{
-		Pre: pre,
+		Args: s.Command(),
 		Dir: d,
 	}
 

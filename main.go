@@ -24,7 +24,7 @@ func sshServer(s ssh.Session) {
 	var e error
 
 	comp := CONF.Comp[s.User()]
-	if comp.Func == nil {
+	if comp.Cmd == "" {
 		log.Errorf("invalid compiler (user) attempt: %s", s.User()) 
 		fmt.Fprintf(s.Stderr(), "unknown compiler:  %s\n\r", s.User())
 		s.Close() ; return
@@ -36,7 +36,7 @@ func sshServer(s ssh.Session) {
 		s.Close() ; return
 	}
 
-	if e = comp.Func(s, dat); e != nil {
+	if e = comp.Generic_comp(s, dat); e != nil {
 		log.Errorf("failed to compile:  %v\n\r", e)
 		fmt.Fprintf(s.Stderr(), "failed to compile:  %v\n\r", e)
 		s.Close() ; return
