@@ -14,7 +14,7 @@ The client isn't written yet, but you can still use it over SSH with a command l
 
 (replace `your-server` with the address for your SSH server and `foo` with your binary name)
 ```sh
-tar -cf - . | ssh go@your-server . > foo
+tar -cf - . | ssh go@your-server -p 7845 . > foo
 ```
   You still have to make it executable (you can add `sudo chmod a+x foo` to the end of the chain for this).
 
