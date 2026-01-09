@@ -17,7 +17,7 @@ func c_compiler(s ssh.Session, dat ReqDat) error {
 }
 
 func go_compiler(s ssh.Session, dat ReqDat) error {
-//	defer os.RemoveAll(dat.Dir)
+	defer os.RemoveAll(dat.Dir)
 	var e error
 
 	binP := filepath.Join(dat.Dir, ran())
