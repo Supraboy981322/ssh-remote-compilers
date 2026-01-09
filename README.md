@@ -10,7 +10,8 @@ This project is a server and client that does this automatically
 
 ## Usage
 
-The client isn't written yet, but you can still use it over SSH with a command like this:
+>[!NOTE]
+>The client isn't written yet, but you can still use it over SSH with a command like this:
 
 (replace `your-server` with the address for your SSH server and `foo` with your binary name)
 ```sh
