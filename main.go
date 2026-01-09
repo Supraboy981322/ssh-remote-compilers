@@ -7,26 +7,6 @@ import (
 	"github.com/charmbracelet/log"
 )
 
-var (
-	conf = Conf{
-		Server: ServerConf{
-			Port: 7845,
-		},
-		Comp: map[string]CompConf{
-			"c": CompConf{
-				Cmd: "gcc",
-				Args: []string{},
-				Func: c_compiler,
-			},
-			"go": CompConf{
-				Cmd: "go",
-				Args: []string{},
-				Func: go_compiler,
-			},
-		},
-	} 
-)
-
 func init() {
 	log.Info("starting server...")
 }
@@ -34,16 +14,16 @@ func init() {
 func main() {
 	ssh.Handle(sshServer)
 
-	log.Infof("Listening on port %d", conf.Server.Port)
+	log.Infof("Listening on port %d", CONF.Server.Port)
 
-	port := ":"+strconv.Itoa(conf.Server.Port)
+	port := ":"+strconv.Itoa(CONF.Server.Port)
 	log.Fatal(ssh.ListenAndServe(port, nil))
 }
 
 func sshServer(s ssh.Session) {
 	var e error
 
-	comp := conf.Comp[s.User()]
+	comp := CONF.Comp[s.User()]
 	if comp.Func == nil {
 		log.Errorf("invalid compiler (user) attempt: %s", s.User()) 
 		fmt.Fprintf(s.Stderr(), "unknown compiler:  %s\n\r", s.User())

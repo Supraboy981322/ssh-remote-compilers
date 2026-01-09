@@ -16,25 +16,6 @@ import (
 func readReq(s ssh.Session) (ReqDat, error) {
 	pReader := bufio.NewReader(s)
 	pre := Pre{}
-/*	for {
-		l, e := pReader.ReadString('\n')
-		l = strings.TrimSpace(l)
-		if e != nil {
-			if e == io.EOF { break }
-			return ReqDat{}, fmt.Errorf("err reading pre:  %v\n\r", e)
-		} ; if l == "~~~" { break }
-
-		p := strings.Split(l, ":")
-		if len(p) < 2 { return ReqDat{}, fmt.Errorf("invalid pre:  %s", l) }
-
-		for i, h := range p { p[i] = strings.TrimSpace(h)	}
-		pre[p[0]] = p[1]
-	}*/
-
-//	var tar_buf bytes.Buffer
-//	tar_wr := bufio.NewWriter(&tar_buf)
-//	_, e := tar_wr.ReadFrom(pReader)
-//	if e != nil { return e }
 
 	d, e := os.MkdirTemp("/tmp", "ssh_rem_comp--*")
 	if e != nil { return ReqDat{}, e }

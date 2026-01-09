@@ -5,7 +5,6 @@ import (
 	"os"
 	"fmt"
 	"os/exec"
-//	"strings"
 	"path/filepath"
 	"github.com/gliderlabs/ssh"
 )
@@ -30,5 +29,11 @@ func go_compiler(s ssh.Session, dat ReqDat) error {
 	if bin, e = os.Open(binP); e != nil { return e }
 	if _, e = io.Copy(s, bin); e != nil { return e }
 
+	return nil
+}
+
+func zig_compiler(s ssh.Session, dat ReqDat) error {
+	defer os.RemoveAll(dat.Dir)
+	fmt.Fprintf(s.Stderr(), "TODO: Zig\n", dat.Dir) 
 	return nil
 }
